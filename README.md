@@ -15,19 +15,17 @@ Install a basic Laravel Project.
 composer create-project laravel/laravel:^8.0 example-app
  
 cd example-app
-
-composer install
 ```
 
-Run this commands to install the package and configure the Laravel Project
+Run this command to install the package and configure the Laravel Project
 
 ```bash
 composer require ginocampra/laravel-leaflet
+```
 
-composer dump-autoload
+Run the server
 
-php artisan optimize
-
+```bash
 php artisan serve
 ```
 
@@ -35,8 +33,8 @@ Open you browser "http://127.0.0.1:8000/map"
 
 You will see:
 
-<img src="https://github.com/ginocampra/laravel-leaflet/blob/master/images/itworks.png" alt="LaravelLeaflet" height="64">
+<img src="https://github.com/ginocampra/laravel-leaflet/blob/master/images/itworks.png" alt="LaravelLeaflet" height="250">
 
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/ginocampra/laravel-leaflet/LICENSE.md) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/ginocampra/laravel-leaflet/blob/master/LICENSE.md) for more information.
