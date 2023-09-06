@@ -35,6 +35,39 @@ You will see:
 
 <img src="https://github.com/ginocampra/laravel-leaflet/blob/master/images/itworks.png" alt="LaravelLeaflet" height="350">
 
+## Blade Component
+
+You can use this to inject a Leaflet Map in you Blade views
+
+Implement $title and $markers in your Controller and pass to view
+
+```php
+
+    $markers = [
+        [
+            'position' => [
+                'lat' => -23.347509137997484,
+                'lng' => -47.84753617004771
+            ],
+            'draggable' => false
+        ]
+    ];
+    $title = 'Initial Map';
+    
+    return view('welcome',compact('title','markers'));
+
+```
+
+Drop the blade component in the view
+
+```php
+
+        <div>
+            <x-laravel-map :title="$title" :markers="$markers"/>
+        </div>
+
+```
+
 ## License
 
 The MIT License (MIT). Please see [License File](https://github.com/ginocampra/laravel-leaflet/blob/master/LICENSE.md) for more information.

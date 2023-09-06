@@ -2,7 +2,9 @@
 
 namespace Ginocampra\LaravelLeaflet;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Ginocampra\LaravelLeaflet\View\Components\LaravelMap;
 
 class LaravelLeafletServiceProvider extends ServiceProvider
 {
@@ -25,5 +27,8 @@ class LaravelLeafletServiceProvider extends ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
         $this->loadViewsFrom(__DIR__ . '/views','LaravelLeaflet');
+
+        Blade::component('laravel-map', LaravelMap::class);
+        Blade::componentNamespace('LaravelLeaflet\\Views\\Components', 'laravel-map');
     }
 }
