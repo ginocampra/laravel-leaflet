@@ -1,6 +1,6 @@
 {
     "name": "ginocampra/laravel-leaflet",
-    "description": "Allows you to create screens with Leaflet maps in an integrated way with Laravel",
+    "description": "Allows you to create pages with Leaflet maps in an integrated way with Laravel",
     "type": "library",
     "license": "MIT",
     "autoload": {

@@ -1,25 +1,20 @@
-<!DOCTYPE html>
-<html>
-
-<head>
+<div>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <style>
         .text-center {
             text-align: center;
         }
+
         #map {
             width: '100%';
             height: 600px;
         }
     </style>
     <link rel='stylesheet' href='https://unpkg.com/leaflet@1.8.0/dist/leaflet.css' crossorigin='' />
-</head>
 
-<body>
-    <h1 class='text-center'>Laravel Leaflet Maps - It Works</h1>
+    <h1 class='text-center'>{{ $title ?? ''}}</h1>
     <div id='map'></div>
-
     <script src='https://unpkg.com/leaflet@1.8.0/dist/leaflet.js' crossorigin=''></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
@@ -95,6 +90,4 @@
             console.log($event.target.getLatLng());
         }
     </script>
-</body>
-
-</html>
+</div>
