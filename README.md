@@ -35,7 +35,6 @@ You will see:
 
 <img src="https://github.com/ginocampra/laravel-leaflet/blob/master/images/itworks.png" alt="LaravelLeaflet" height="350">
 
-|---------------------------------------------------------------------------|
 ## Blade Component
 
 You can use this to inject a Leaflet Map in you Blade views
@@ -68,8 +67,6 @@ Drop the blade component in the view
         </div>
 
 ```
-
-|---------------------------------------------------------------------------|
 
 ## License
 
