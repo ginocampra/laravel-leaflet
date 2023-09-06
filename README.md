@@ -33,7 +33,7 @@ Open you browser "http://127.0.0.1:8000/map"
 
 You will see:
 
-<img src="https://github.com/ginocampra/laravel-leaflet/blob/master/images/itworks.png" alt="LaravelLeaflet" height="250">
+<img src="https://github.com/ginocampra/laravel-leaflet/blob/master/images/itworks.png" alt="LaravelLeaflet" height="350">
 
 ## License
 
