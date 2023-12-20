@@ -24,13 +24,13 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script>
-        let map, markers = [];
+        let map, markers = [], polygons = [];
         /* ----------------------------- Initialize Map ----------------------------- */
         function initMap() {
             map = L.map('map', {
                 center: {
-                    lat: -23.347509137997484,
-                    lng: -47.84753617004771
+                    lat: <?php echo $options['center']['lat'] ?>, // -23.347509137997484,
+                    lng: <?php echo $options['center']['lng'] ?> // -47.84753617004771
                 },
                 zoom: 18
             });
@@ -41,6 +41,7 @@
 
             map.on('click', mapClicked);
             initMarkers();
+            initPolygons();
         }
         initMap();
 
@@ -59,7 +60,10 @@
 
             const geocoder = L.Control.Geocoder.nominatim();
             geocoder.reverse(
-                { lat: -23.347509137997484, lng: -47.84753617004771 },
+                {
+                    lat: <?php echo $options['center']['lat'] ?>, // -23.347509137997484,
+                    lng: <?php echo $options['center']['lng'] ?> // -47.84753617004771
+                },
                 map.getZoom(),
                 (results) => {
                     if(results.length) {
@@ -68,6 +72,18 @@
                 }
             );
         }
+
+        /* --------------------------- Initialize Polygons --------------------------- */
+        function initPolygons() {
+            const initialPolygons = <?php echo json_encode($initialPolygons); ?>;
+
+            for (let index = 0; index < initialPolygons.length; index++) {
+                const data = initialPolygons[index];
+                const polygon = L.polygon(data).addTo(map).bindPopup(`I am a Polygon`);
+            }
+        }
+
+        const popup = L.popup();
 
         function generateMarker(data, index) {
             return L.marker(data.position, {
@@ -79,12 +95,21 @@
 
         /* ------------------------- Handle Map Click Event ------------------------- */
         function mapClicked($event) {
-            console.log(map);
+            popup
+			.setLatLng($event.latlng)
+			.setContent(`You clicked the map at ${$event.latlng.toString()}`)
+			.openOn(map);
             console.log($event.latlng.lat, $event.latlng.lng);
         }
 
         /* ------------------------ Handle Marker Click Event ----------------------- */
         function markerClicked($event, index) {
+            console.log(map);
+            console.log($event.latlng.lat, $event.latlng.lng);
+        }
+
+        /* ------------------------ Handle Polygon Click Event ----------------------- */
+        function polygonClicked($event, index) {
             console.log(map);
             console.log($event.latlng.lat, $event.latlng.lng);
         }

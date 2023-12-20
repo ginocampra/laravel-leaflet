@@ -43,18 +43,33 @@ Implement $title and $markers in your Controller and pass to view
 
 ```php
 
-    $markers = [
+    $options = [
+        'center' => [
+            'lat' => -23.347509137997484,
+            'lng' => -47.84753617004771
+        ],
+    ];
+    $initialMarkers = [
         [
             'position' => [
                 'lat' => -23.347509137997484,
                 'lng' => -47.84753617004771
             ],
-            'draggable' => false
+            'draggable' => false,
+            'title' => 'Tatuí - SP'
+        ]
+    ];
+    $initialPolygons = [
+        [
+            [-23.34606370264136 , -47.84818410873414],
+            [-23.34575341324051 , -47.84759938716888],
+            [-23.34615728184211 , -47.84729361534119],
+            [-23.34651189716213 , -47.84792125225068]
         ]
     ];
     $title = 'Initial Map';
     
-    return view('welcome',compact('title','markers'));
+    return view('welcome',compact('options','title','initialMarkers','initialPolygons'));
 
 ```
 
@@ -63,7 +78,7 @@ Drop the blade component in the view
 ```php
 
         <div>
-            <x-laravel-map :title="$title" :markers="$markers"/>
+            <x-laravel-map :title="$title" :initialMarkers="$initialMarkers" :initialPolygons="$initialPolygons"  :options="$options"/>
         </div>
 
 ```
