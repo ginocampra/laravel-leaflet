@@ -7,18 +7,22 @@ use Illuminate\View\Component;
 class LaravelMap extends Component
 {
 
+    public $options = [];
     public $title;
-    public $markers = [];
+    public $initialMarkers = [];
+    public $initialPolygons = [];
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($title = null,$markers = null)
+    public function __construct($options = null, $title = null, $initialMarkers = null, $initialPolygons = null)
     {
+        $this->options = $options;
         $this->title = $title;
-        $this->markers = $markers;
+        $this->initialMarkers = $initialMarkers;
+        $this->initialPolygons = $initialPolygons;
     }
 
     /**
@@ -30,7 +34,10 @@ class LaravelMap extends Component
     {
         return view('LaravelLeaflet::components.laravel-map',[
             'title' => $this->title,
-            'initialMarkers' => $this->markers
+            'initialMarkers' => $this->initialPolygons,
+            'initialPolygons' => $this->initialPolygons,
+            'options' => $this->options
+
         ]);
     }
 }
