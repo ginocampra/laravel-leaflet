@@ -13,7 +13,8 @@ class MapController extends Controller
             'center' => [
                 'lat' => -23.347509137997484,
                 'lng' => -47.84753617004771
-            ]
+            ],
+            'googleview' => true
         ];
         $initialMarkers = [
             [
