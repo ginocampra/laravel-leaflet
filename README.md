@@ -48,6 +48,7 @@ Implement $title and $markers in your Controller and pass to view
             'lat' => -23.347509137997484,
             'lng' => -47.84753617004771
         ],
+        'googleview' => true
     ];
     $initialMarkers = [
         [

@@ -24,7 +24,9 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script>
-        let map, markers = [], polygons = [];
+        let map, markers = [], polygons = [], ctlLayers, menuBase;
+        const options = <?php echo json_encode($options); ?>;
+        const googleview = <?php echo json_encode($options['googleview']); ?>;
         /* ----------------------------- Initialize Map ----------------------------- */
         function initMap() {
             map = L.map('map', {
@@ -35,9 +37,23 @@
                 zoom: 18
             });
 
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap'
-            }).addTo(map);
+            });
+            if (googleview) {
+
+                var imagens = L.tileLayer('http://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+                    attribution: '© Google Maps'
+                });
+                var menuBase = {
+                    "Google Maps": imagens,
+                    "OpenStreetMap": osm
+                };
+                map.addLayer(imagens);
+                var ctlLayers = L.control.layers(menuBase).addTo(map);
+            }
+
+            map.addLayer(osm);
 
             map.on('click', mapClicked);
             initMarkers();
