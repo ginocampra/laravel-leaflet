@@ -25,22 +25,28 @@
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script>
         let map, markers = [], polygons = [], ctlLayers, menuBase;
-        const options = <?php echo json_encode($options); ?>;
-        const googleview = <?php echo json_encode($options['googleview']); ?>;
         /* ----------------------------- Initialize Map ----------------------------- */
         function initMap() {
+
+            const options = {!! json_encode($options) !!};
+            const initialMarkers = {!! json_encode($initialMarkers ?? '') !!};
+            const initialPolygons = {!! json_encode($initialPolygons ?? '') !!};
+
             map = L.map('map', {
                 center: {
-                    lat: <?php echo $options['center']['lat'] ?>, // -23.347509137997484,
-                    lng: <?php echo $options['center']['lng'] ?> // -47.84753617004771
+                    lat: (options.center) ? options.center.lat : -23.347509137997484,
+                    lng: (options.center) ? options.center.lng : -47.84753617004771
                 },
-                zoom: 18
+                zoom: options.zoom || 18,
+                zoomControl: options.zoomControl || true,
+                minZoom: options.minZoom || 13,
+                maxZoom: options.maxZoom || 18,
             });
 
             var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap'
             });
-            if (googleview) {
+            if (options.googleview || true) {
 
                 var imagens = L.tileLayer('http://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
                     attribution: '© Google Maps'
@@ -56,14 +62,13 @@
             map.addLayer(osm);
 
             map.on('click', mapClicked);
-            initMarkers();
-            initPolygons();
+            if (initialMarkers != '') { initMarkers(initialMarkers,options); }
+            if (initialPolygons != '') { initPolygons(initialPolygons); }
         }
         initMap();
 
         /* --------------------------- Initialize Markers --------------------------- */
-        function initMarkers() {
-            const initialMarkers = <?php echo json_encode($initialMarkers); ?>;
+        function initMarkers(initialMarkers,options) {
 
             for (let index = 0; index < initialMarkers.length; index++) {
 
@@ -77,8 +82,8 @@
             const geocoder = L.Control.Geocoder.nominatim();
             geocoder.reverse(
                 {
-                    lat: <?php echo $options['center']['lat'] ?>, // -23.347509137997484,
-                    lng: <?php echo $options['center']['lng'] ?> // -47.84753617004771
+                    lat: (options.center) ? options.center.lat : -23.347509137997484,
+                    lng: (options.center) ? options.center.lng : -47.84753617004771
                 },
                 map.getZoom(),
                 (results) => {
@@ -90,23 +95,12 @@
         }
 
         /* --------------------------- Initialize Polygons --------------------------- */
-        function initPolygons() {
-            const initialPolygons = <?php echo json_encode($initialPolygons); ?>;
+        function initPolygons(initialPolygons) {
 
             for (let index = 0; index < initialPolygons.length; index++) {
                 const data = initialPolygons[index];
                 const polygon = L.polygon(data).addTo(map).bindPopup(`I am a Polygon`);
             }
-        }
-
-        const popup = L.popup();
-
-        function generateMarker(data, index) {
-            return L.marker(data.position, {
-                    draggable: data.draggable
-                })
-                .on('click', (event) => markerClicked(event, index))
-                .on('dragend', (event) => markerDragEnd(event, index));
         }
 
         /* ------------------------- Handle Map Click Event ------------------------- */

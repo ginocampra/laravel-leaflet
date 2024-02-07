@@ -14,7 +14,11 @@ class MapController extends Controller
                 'lat' => -23.347509137997484,
                 'lng' => -47.84753617004771
             ],
-            'googleview' => true
+            'googleview' => true,
+            'zoom' => 18,
+            'zoomControl' => true,
+            'minZoom' => 13,
+            'maxZoom' => 18,
         ];
         $initialMarkers = [
             [
