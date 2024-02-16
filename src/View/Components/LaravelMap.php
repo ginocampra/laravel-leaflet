@@ -11,18 +11,24 @@ class LaravelMap extends Component
     public $title;
     public $initialMarkers = [];
     public $initialPolygons = [];
+    public $initialPolylines = [];
+    public $initialRectangles = [];
+    public $initialCircles = [];
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($options = null, $title = null, $initialMarkers = null, $initialPolygons = null)
+    public function __construct($options = null, $title = null, $initialMarkers = null, $initialPolygons = null, $initialPolylines = null, $initialRectangles = null, $initialCircles = null)
     {
         $this->options = $options;
         $this->title = $title;
         $this->initialMarkers = $initialMarkers;
         $this->initialPolygons = $initialPolygons;
+        $this->initialPolylines = $initialPolylines;
+        $this->initialRectangles = $initialRectangles;
+        $this->initialCircles = $initialCircles;
     }
 
     /**
@@ -34,8 +40,11 @@ class LaravelMap extends Component
     {
         return view('LaravelLeaflet::components.laravel-map',[
             'title' => $this->title,
-            'initialMarkers' => $this->initialPolygons,
+            'initialMarkers' => $this->initialMarkers,
             'initialPolygons' => $this->initialPolygons,
+            'initialPolylines' => $this->initialPolylines,
+            'initialRectangles' => $this->initialRectangles,
+            'initialCircles' => $this->initialCircles,
             'options' => $this->options
 
         ]);

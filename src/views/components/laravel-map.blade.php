@@ -26,6 +26,9 @@
             const options = {!! json_encode($options) !!};
             const initialMarkers = {!! json_encode($initialMarkers ?? '') !!};
             const initialPolygons = {!! json_encode($initialPolygons ?? '') !!};
+            const initialPolylines = {!! json_encode($initialPolylines ?? '') !!};
+            const initialRectangles = {!! json_encode($initialRectangles ?? '') !!};
+            const initialCircles = {!! json_encode($initialCircles ?? '') !!};
 
             map = L.map('map', {
                 center: {
@@ -59,8 +62,21 @@
             map.on('click', mapClicked);
             if (initialMarkers != '') { initMarkers(initialMarkers,options); }
             if (initialPolygons != '') { initPolygons(initialPolygons); }
+            if (initialPolylines != '') { initPolylines(initialPolylines); }
+            if (initialRectangles != '') { initRectangles(initialRectangles); }
+            if (initialCircles != '') { initCircles(initialCircles); }
         }
         initMap();
+
+        const popup = L.popup();
+
+        function generateMarker(data, index) {
+            return L.marker(data.position, {
+                    draggable: data.draggable
+                })
+                .on('click', (event) => markerClicked(event, index))
+                .on('dragend', (event) => markerDragEnd(event, index));
+        }        
 
         /* --------------------------- Initialize Markers --------------------------- */
         function initMarkers(initialMarkers,options) {
@@ -98,15 +114,32 @@
             }
         }
 
-        const popup = L.popup();
+        /* --------------------------- Initialize Polylines --------------------------- */
+        function initPolylines(initialPolylines) {
 
-        function generateMarker(data, index) {
-            return L.marker(data.position, {
-                    draggable: data.draggable
-                })
-                .on('click', (event) => markerClicked(event, index))
-                .on('dragend', (event) => markerDragEnd(event, index));
+            for (let index = 0; index < initialPolylines.length; index++) {
+                const data = initialPolylines[index];
+                const polyline = L.polyline(data).addTo(map).bindPopup(`I am a Polyline`);
+            }
+        }  
+        
+        /* --------------------------- Initialize Rectangles --------------------------- */
+        function initRectangles(initialRectangles) {
+
+            for (let index = 0; index < initialRectangles.length; index++) {
+                const data = initialRectangles[index];
+                const rectangle = L.rectangle(data).addTo(map).bindPopup(`I am a Rectangle`);
+            }
         }
+
+        /* --------------------------- Initialize Circles --------------------------- */
+        function initCircles(initialCircles) {
+
+            for (let index = 0; index < initialCircles.length; index++) {
+                const data = initialCircles[index];
+                const circle = L.circle(data.position, {radius: data.radius}).addTo(map).bindPopup(`I am a Circle`);
+            }
+        }        
 
         /* ------------------------- Handle Map Click Event ------------------------- */
         function mapClicked($event) {
