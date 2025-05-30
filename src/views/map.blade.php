@@ -9,8 +9,8 @@
             text-align: center;
         }
         #map {
-            width: '100%';
-            height: 600px;
+            width: {{ $options['width'] ?? '100%' }};
+            height: {{ $options['height'] ?? '600px' }};
         }
     </style>
     <link rel='stylesheet' href='https://unpkg.com/leaflet@1.8.0/dist/leaflet.css' crossorigin='' />
@@ -137,7 +137,7 @@
                 const rectangle = L.rectangle(data).addTo(map).bindPopup(`I am a Rectangle`);
             }
         }
-        
+
         /* --------------------------- Initialize Circles --------------------------- */
         function initCircles(initialCircles) {
 
