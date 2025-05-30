@@ -19,6 +19,8 @@ class MapController extends Controller
             'zoomControl' => true,
             'minZoom' => 13,
             'maxZoom' => 18,
+            'width' => '100%',
+            'height' => '600px',
         ];
         $initialMarkers = [
             [
@@ -43,7 +45,7 @@ class MapController extends Controller
                 [-23.348914298657980 , -47.850147485733040],
                 [-23.347850469110245 , -47.848109006881714],
                 [-23.349209805352476 , -47.847293615341194],
-                [-23.347781516900888 , -47.844675779342660]               
+                [-23.347781516900888 , -47.844675779342660]
             ]
         ];
         $initialRectangles = [
@@ -54,8 +56,8 @@ class MapController extends Controller
         ];
         $initialCircles = [
             [
-                'position' => [ 
-                    'lat' => -23.346569922234977, 
+                'position' => [
+                    'lat' => -23.346569922234977,
                     'lng' => -47.84376382827759
                 ],
                 'radius' => 80.68230575309364

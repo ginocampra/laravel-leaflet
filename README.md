@@ -53,6 +53,8 @@ Implement $title and $markers in your Controller and pass to view
         'zoomControl' => true,
         'minZoom' => 13,
         'maxZoom' => 18,
+        'width' => '100%', // optional default = 100%
+        'height' => '600px',  // optional default = 600px
     ];
     $initialMarkers = [
         [

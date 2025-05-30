@@ -7,8 +7,8 @@
         }
 
         #map {
-            width: '100%';
-            height: 600px;
+            width: {{ $options['width'] ?? '100%' }};
+            height: {{ $options['height'] ?? '600px' }};
         }
     </style>
     <link rel='stylesheet' href='https://unpkg.com/leaflet@1.8.0/dist/leaflet.css' crossorigin='' />
@@ -76,7 +76,7 @@
                 })
                 .on('click', (event) => markerClicked(event, index))
                 .on('dragend', (event) => markerDragEnd(event, index));
-        }        
+        }
 
         /* --------------------------- Initialize Markers --------------------------- */
         function initMarkers(initialMarkers,options) {
@@ -121,8 +121,8 @@
                 const data = initialPolylines[index];
                 const polyline = L.polyline(data).addTo(map).bindPopup(`I am a Polyline`);
             }
-        }  
-        
+        }
+
         /* --------------------------- Initialize Rectangles --------------------------- */
         function initRectangles(initialRectangles) {
 
@@ -139,7 +139,7 @@
                 const data = initialCircles[index];
                 const circle = L.circle(data.position, {radius: data.radius}).addTo(map).bindPopup(`I am a Circle`);
             }
-        }        
+        }
 
         /* ------------------------- Handle Map Click Event ------------------------- */
         function mapClicked($event) {
