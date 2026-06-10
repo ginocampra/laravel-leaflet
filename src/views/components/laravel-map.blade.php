@@ -85,7 +85,7 @@
 
                 const data = initialMarkers[index];
                 const marker = generateMarker(data, index);
-                marker.addTo(map).bindPopup(`<b>${data.position.lat},  ${data.position.lng}</b>`);
+                marker.addTo(map).bindPopup(data.name || data.title || `<b>${data.position.lat},  ${data.position.lng}</b>`).bindTooltip(data.name || data.title || `${data.position.lat}, ${data.position.lng}`, {permanent: true, direction: 'top'});
                 map.panTo(data.position);
                 markers.push(marker)
             }
@@ -110,7 +110,8 @@
 
             for (let index = 0; index < initialPolygons.length; index++) {
                 const data = initialPolygons[index];
-                const polygon = L.polygon(data).addTo(map).bindPopup(`I am a Polygon`);
+                const coords = data.name ? Object.keys(data).filter(k => k !== 'name').map(k => data[k]) : data;
+                const polygon = L.polygon(coords).addTo(map).bindPopup(data.name || 'I am a Polygon').bindTooltip(data.name || 'I am a Polygon', {permanent: true});
             }
         }
 
@@ -119,7 +120,8 @@
 
             for (let index = 0; index < initialPolylines.length; index++) {
                 const data = initialPolylines[index];
-                const polyline = L.polyline(data).addTo(map).bindPopup(`I am a Polyline`);
+                const coords = data.name ? Object.keys(data).filter(k => k !== 'name').map(k => data[k]) : data;
+                const polyline = L.polyline(coords).addTo(map).bindPopup(data.name || 'I am a Polyline').bindTooltip(data.name || 'I am a Polyline', {permanent: true});
             }
         }
 
@@ -128,7 +130,8 @@
 
             for (let index = 0; index < initialRectangles.length; index++) {
                 const data = initialRectangles[index];
-                const rectangle = L.rectangle(data).addTo(map).bindPopup(`I am a Rectangle`);
+                const coords = data.name ? Object.keys(data).filter(k => k !== 'name').map(k => data[k]) : data;
+                const rectangle = L.rectangle(coords).addTo(map).bindPopup(data.name || 'I am a Rectangle').bindTooltip(data.name || 'I am a Rectangle', {permanent: true});
             }
         }
 
@@ -137,7 +140,7 @@
 
             for (let index = 0; index < initialCircles.length; index++) {
                 const data = initialCircles[index];
-                const circle = L.circle(data.position, {radius: data.radius}).addTo(map).bindPopup(`I am a Circle`);
+                const circle = L.circle(data.position, {radius: data.radius}).addTo(map).bindPopup(data.name || 'I am a Circle').bindTooltip(data.name || 'I am a Circle', {permanent: true});
             }
         }
 
