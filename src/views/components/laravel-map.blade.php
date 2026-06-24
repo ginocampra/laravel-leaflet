@@ -78,6 +78,26 @@
                 .on('dragend', (event) => markerDragEnd(event, index));
         }
 
+        function objectLabel(data, fallback) {
+            return data.name || data.title || fallback;
+        }
+
+        function objectPopup(data, fallback) {
+            const label = objectLabel(data, fallback);
+
+            if (!data.description) {
+                return label;
+            }
+
+            return `<strong>${label}</strong><br>${data.description}`;
+        }
+
+        function objectCoordinates(data) {
+            return data.name || data.description
+                ? Object.keys(data).filter(k => !['name', 'description'].includes(k)).map(k => data[k])
+                : data;
+        }
+
         /* --------------------------- Initialize Markers --------------------------- */
         function initMarkers(initialMarkers,options) {
 
@@ -85,7 +105,8 @@
 
                 const data = initialMarkers[index];
                 const marker = generateMarker(data, index);
-                marker.addTo(map).bindPopup(data.name || data.title || `<b>${data.position.lat},  ${data.position.lng}</b>`).bindTooltip(data.name || data.title || `${data.position.lat}, ${data.position.lng}`, {permanent: true, direction: 'top'});
+                const fallback = `${data.position.lat}, ${data.position.lng}`;
+                marker.addTo(map).bindPopup(objectPopup(data, fallback)).bindTooltip(objectLabel(data, fallback), {permanent: true, direction: 'top'});
                 map.panTo(data.position);
                 markers.push(marker)
             }
@@ -110,8 +131,8 @@
 
             for (let index = 0; index < initialPolygons.length; index++) {
                 const data = initialPolygons[index];
-                const coords = data.name ? Object.keys(data).filter(k => k !== 'name').map(k => data[k]) : data;
-                const polygon = L.polygon(coords).addTo(map).bindPopup(data.name || 'I am a Polygon').bindTooltip(data.name || 'I am a Polygon', {permanent: true});
+                const coords = objectCoordinates(data);
+                const polygon = L.polygon(coords).addTo(map).bindPopup(objectPopup(data, 'I am a Polygon')).bindTooltip(objectLabel(data, 'I am a Polygon'), {permanent: true});
             }
         }
 
@@ -120,8 +141,8 @@
 
             for (let index = 0; index < initialPolylines.length; index++) {
                 const data = initialPolylines[index];
-                const coords = data.name ? Object.keys(data).filter(k => k !== 'name').map(k => data[k]) : data;
-                const polyline = L.polyline(coords).addTo(map).bindPopup(data.name || 'I am a Polyline').bindTooltip(data.name || 'I am a Polyline', {permanent: true});
+                const coords = objectCoordinates(data);
+                const polyline = L.polyline(coords).addTo(map).bindPopup(objectPopup(data, 'I am a Polyline')).bindTooltip(objectLabel(data, 'I am a Polyline'), {permanent: true});
             }
         }
 
@@ -130,8 +151,8 @@
 
             for (let index = 0; index < initialRectangles.length; index++) {
                 const data = initialRectangles[index];
-                const coords = data.name ? Object.keys(data).filter(k => k !== 'name').map(k => data[k]) : data;
-                const rectangle = L.rectangle(coords).addTo(map).bindPopup(data.name || 'I am a Rectangle').bindTooltip(data.name || 'I am a Rectangle', {permanent: true});
+                const coords = objectCoordinates(data);
+                const rectangle = L.rectangle(coords).addTo(map).bindPopup(objectPopup(data, 'I am a Rectangle')).bindTooltip(objectLabel(data, 'I am a Rectangle'), {permanent: true});
             }
         }
 
@@ -140,7 +161,7 @@
 
             for (let index = 0; index < initialCircles.length; index++) {
                 const data = initialCircles[index];
-                const circle = L.circle(data.position, {radius: data.radius}).addTo(map).bindPopup(data.name || 'I am a Circle').bindTooltip(data.name || 'I am a Circle', {permanent: true});
+                const circle = L.circle(data.position, {radius: data.radius}).addTo(map).bindPopup(objectPopup(data, 'I am a Circle')).bindTooltip(objectLabel(data, 'I am a Circle'), {permanent: true});
             }
         }
 

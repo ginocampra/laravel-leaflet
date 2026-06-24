@@ -30,12 +30,14 @@ class MapController extends Controller
                 ],
                 'draggable' => true,
                 'title' => 'Tatuí - SP',
-                'name' => 'Marco Zero'
+                'name' => 'Marco Zero',
+                'description' => 'Ponto central usado como referência inicial do mapa.'
             ]
         ];
         $initialPolygons = [
             [
                 'name' => 'Quadrilátero A',
+                'description' => 'Área delimitada por quatro pontos no entorno do centro.',
                 [-23.34606370264136 , -47.84818410873414],
                 [-23.34575341324051 , -47.84759938716888],
                 [-23.34615728184211 , -47.84729361534119],
@@ -45,6 +47,7 @@ class MapController extends Controller
         $initialPolylines = [
             [
                 'name' => 'Rota Principal',
+                'description' => 'Trajeto principal exibido sobre o mapa.',
                 [-23.348914298657980 , -47.850147485733040],
                 [-23.347850469110245 , -47.848109006881714],
                 [-23.349209805352476 , -47.847293615341194],
@@ -54,6 +57,7 @@ class MapController extends Controller
         $initialRectangles = [
             [
                 'name' => 'Área de Interesse',
+                'description' => 'Retângulo representando uma região destacada.',
                 [-23.347683013682527 , -47.85067319869996],
                 [-23.346727528670904 , -47.84879565238953]
             ]
@@ -65,7 +69,8 @@ class MapController extends Controller
                     'lng' => -47.84376382827759
                 ],
                 'radius' => 80.68230575309364,
-                'name' => 'Raio de Cobertura'
+                'name' => 'Raio de Cobertura',
+                'description' => 'Círculo de cobertura em metros a partir do ponto informado.'
             ]
         ];
         $title = 'Initial Map';
